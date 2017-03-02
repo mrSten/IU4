@@ -27,6 +27,8 @@ public class IU4 {
 
     public static void main(String[] args) {
         dataList = reader.readFile();
+
+        
         HashMap<String, Integer> mapData;
         System.out.println("Antal poster av användaren: " + dataList.size());
         mapData = createHashMap(dataList, 4);
@@ -34,9 +36,9 @@ public class IU4 {
         System.out.println("Mest använda mediet är: " + mostUsedOfKey(mapData));
         System.out.println("Posterna har i genomsnitt: " + sharesInAverage(dataList, 5) + " shares");
         String[] tmpArray = mostViralPost(dataList, 5);
-        System.out.println("Mest virala post är en " + tmpArray[4] + " med " + tmpArray[5] + " antal shares");
+        System.out.println("Mest virala post är ett " + tmpArray[4] + " med " + tmpArray[5] + " antal shares");
         mapData = createHashMap(dataList, 6);
-        System.out.println("Mest populära månaden är " + mostUsedOfKey(mapData));
+        System.out.println("Mest populära ÅÅMM är " + mostUsedOfKey(mapData).substring(0,4));
         mapData = createHashMap(dataList, 3);
         System.out.println("Mest använda ordet är: " + mostUsedOfKey(mapData));
         System.out.println("Användaren har skrivit totalt: " + countAllChars(dataList, 3) + " tecken");
