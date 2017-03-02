@@ -26,12 +26,20 @@ public class IU4 {
     private static ArrayList<String[]> dataList = new ArrayList();
 
     public static void main(String[] args) {
-        dataList = reader.readFile(); 
+        dataList = reader.readFile();
         HashMap<String, Integer> mapData;
-        mapData = createHashMap(dataList, 3);
-        System.out.println(mostUsedWords(mapData));
+        System.out.println("Antal poster av användaren: " + dataList.size());
         mapData = createHashMap(dataList, 4);
-        System.out.println(mostUsedWords(mapData));
+        System.out.println("Antal poster per typ: " + mapData.entrySet());
+        System.out.println("Mest använda mediet är: " + mostUsedOfKey(mapData));
+        System.out.println("Posterna har i genomsnitt: " + sharesInAverage(dataList, 5) + " shares");
+        String[] tmpArray = mostViralPost(dataList, 5);
+        System.out.println("Mest virala post är en " + tmpArray[4] + " med " + tmpArray[5] + " antal shares");
+        mapData = createHashMap(dataList, 6);
+        System.out.println("Mest populära månaden är " + mostUsedOfKey(mapData));
+        mapData = createHashMap(dataList, 3);
+        System.out.println("Mest använda ordet är: " + mostUsedOfKey(mapData));
+        System.out.println("Användaren har skrivit totalt: " + countAllChars(dataList, 3) + " tecken");
     }
 
     /**
@@ -62,11 +70,15 @@ public class IU4 {
     }
 
     /**
-     * Timecomplexity of search is O(n), but it will only search for every unique word once because of the datastructure
-     * @param inMap a HashMap containing (key(string of word) and value(integer of how many times the word has been used))
-     * @return a string of the most used word and how many times it has been used
+     * Timecomplexity of this searchmethod is O(n), but it will only search for
+     * every unique word once because of the datastructure
+     *
+     * @param inMap a HashMap containing (key(string of word) and value(integer
+     * of how many times the word has been used))
+     * @return a string of the most used word and how many times it has been
+     * used
      */
-    public static String mostUsedWords(HashMap<String, Integer> inMap) {
+    public static String mostUsedOfKey(HashMap<String, Integer> inMap) {
         String tempWord = null;
         int value = 0;
         Iterator itKey = inMap.entrySet().iterator();
@@ -81,4 +93,50 @@ public class IU4 {
         return tempWord = tempWord + ": " + value;
     }
 
+    /**
+     *
+     * @param inArray ArrayList<String[]> containing data
+     * @param inInt Index of String[] containing shares count data
+     * @return String[] of the most viral post
+     */
+    public static String[] mostViralPost(ArrayList<String[]> inArray, int inInt) {
+        int highestShare = 0;
+        String[] tmpArray = null;
+        for (String[] strings : inArray) {
+            if (Integer.parseInt(strings[inInt]) > highestShare) {
+                highestShare = Integer.parseInt(strings[inInt]);
+                tmpArray = strings;
+            }
+        }
+        return tmpArray;
+    }
+
+    /**
+     *
+     * @param inArray ArrayList<String[]> containing data
+     * @param inInt Index of String[] containing shares count data
+     * @return the average amount of shares as Integer (summed down to closest
+     * Integer)
+     */
+    public static int sharesInAverage(ArrayList<String[]> inArray, int inInt) {
+        int totalShares = 0;
+        for (String[] strings : inArray) {
+            totalShares += Integer.parseInt(strings[inInt]);
+        }
+        return (totalShares / inArray.size());
+    }
+
+    /**
+     *
+     * @param inArray ArrayList<String[]> containing data
+     * @param inInt Index of String[] containing messages wrote by poster
+     * @return an Integer sum of all Chars written by poster
+     */
+    public static int countAllChars(ArrayList<String[]> inArray, int inInt) {
+        int charAmount = 0;
+        for (String[] strings : inArray) {
+            charAmount += strings[inInt].length();
+        }
+        return charAmount;
+    }
 }
