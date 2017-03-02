@@ -18,8 +18,7 @@ import java.util.ArrayList;
 public class CSVReader {
 
     public ArrayList readFile() {
-
-        String csvFile = "C:/Users/Fredr/Desktop/FacePager/CSVDTrump.csv";
+        String csvFile = "C:/Users/Fredr/Documents/NetBeansProjects/IU4/IU4/CSVDTrump.csv";
         String line;
         String[] dataArray;
         ArrayList<String[]> data = new ArrayList<>();

@@ -6,6 +6,10 @@
 package iu4;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -22,9 +26,59 @@ public class IU4 {
     private static ArrayList<String[]> dataList = new ArrayList();
 
     public static void main(String[] args) {
+        dataList = reader.readFile(); 
+        HashMap<String, Integer> mapData;
+        mapData = createHashMap(dataList, 3);
+        System.out.println(mostUsedWords(mapData));
+        mapData = createHashMap(dataList, 4);
+        System.out.println(mostUsedWords(mapData));
+    }
 
-        dataList = reader.readFile();
+    /**
+     *
+     * @param inArray Array containing data
+     * @param inInt index of String[] in the array containing relevant data
+     * @return a LinkedHashMap with the relevant string as key and value
+     */
+    public static HashMap createHashMap(ArrayList<String[]> inArray, int inInt) {
+        HashMap<String, Integer> tempMap = new HashMap();
+        for (String[] strings : inArray) {
+            StringTokenizer st = new StringTokenizer(strings[inInt]);
+            while (st.hasMoreTokens()) {
+                String result = st.nextToken().replaceAll("[^\\w\\s]", ""); //Tar bort allting som inte är bokstäver
+                if (tempMap.containsKey(result.toLowerCase())) {
+                    int i = tempMap.get(result.toLowerCase());
+                    tempMap.put(result.toLowerCase(), (i + 1));
+                } else {
+                    tempMap.put(result.toLowerCase(), 1); //Lagrar samtliga ord i HashMap med ordet som nyckel, detta gör även att när samma nyckel (ord) dyker upp flera gånger så hamnar det under samma nyckel
 
+                }
+
+            }
+
+        }
+
+        return tempMap;
+    }
+
+    /**
+     * Timecomplexity of search is O(n), but it will only search for every unique word once because of the datastructure
+     * @param inMap a HashMap containing (key(string of word) and value(integer of how many times the word has been used))
+     * @return a string of the most used word and how many times it has been used
+     */
+    public static String mostUsedWords(HashMap<String, Integer> inMap) {
+        String tempWord = null;
+        int value = 0;
+        Iterator itKey = inMap.entrySet().iterator();
+        while (itKey.hasNext()) {
+            Map.Entry pair = (Map.Entry) itKey.next();
+            itKey.remove(); // avoids a ConcurrentModificationException
+            if ((int) pair.getValue() > value) {
+                value = (int) pair.getValue();
+                tempWord = (String) pair.getKey();
+            }
+        }
+        return tempWord = tempWord + ": " + value;
     }
 
 }
