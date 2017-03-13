@@ -221,12 +221,12 @@ public class IU4 {
         return null;
     }
 
-    
     /**
      * A hashmap containing unique words as Key
      *
      * @param inArray Array containing data
-     * @return a HashMap with the relevant string as key and value of rising integer (amount of occurance of word)
+     * @return a HashMap with the relevant string as key and value of rising
+     * integer (amount of occurance of word)
      */
     public static HashMap createStringHashMap(ArrayList<String> inArray) {
         HashMap<String, Integer> tempMap = new HashMap();
