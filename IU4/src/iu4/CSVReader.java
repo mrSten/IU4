@@ -19,7 +19,7 @@ public class CSVReader {
 
     public ArrayList readFile() {
                           
-        String csvFile = "C:/Users/Fredr/Documents/NetBeansProjects/EHM/IU4/newCSV.csv";
+        String csvFile = "C:/Users/Fredr/Documents/NetBeansProjects/IU4/IU4/newCSV.csv";
         String line;
         String[] dataArray;
         ArrayList<String[]> data = new ArrayList<>();
