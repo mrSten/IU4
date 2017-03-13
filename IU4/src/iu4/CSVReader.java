@@ -17,8 +17,8 @@ import java.util.ArrayList;
  */
 public class CSVReader {
 
-    public ArrayList readFile() {
-                          
+    public ArrayList readCSVFile() {
+
         String csvFile = "C:/Users/Fredr/Documents/NetBeansProjects/IU4/IU4/newCSV.csv";
         String line;
         String[] dataArray;
@@ -33,6 +33,19 @@ public class CSVReader {
         }
         return data;
 
+    }
+
+    public ArrayList readTXTFile() {
+        String txtFile = "C:/Users/Fredr/Documents/NetBeansProjects/IU4/IU4/engWords.txt";
+        String line;
+        ArrayList<String> data = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(txtFile))) {
+            while ((line = br.readLine()) != null) {
+                data.add(line);
+            }
+        } catch (IOException e) {
+        }
+        return data;
     }
 
 }
