@@ -35,10 +35,14 @@ public class CSVReader {
 
     }
 
+    /**
+     *
+     * @return ArrayList<String> containing all the words in the Dictionary
+     */
     public ArrayList readTXTFile() {
         String txtFile = "C:/Users/Fredr/Documents/NetBeansProjects/IU4/IU4/engWords.txt";
         String line;
-        ArrayList<String >data = new ArrayList<>();
+        ArrayList<String> data = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(txtFile))) {
             while ((line = br.readLine()) != null) {
                 data.add(line);

@@ -21,6 +21,8 @@ public class IU4 {
     private static final CSVReader textReader = new CSVReader();
 
     /**
+     * Entry point
+     * 
      * @param args the command line arguments
      */
     private static ArrayList<String[]> dataList = new ArrayList();
@@ -83,18 +85,10 @@ public class IU4 {
             StringTokenizer st = new StringTokenizer(strings[inInt]);
             while (st.hasMoreTokens()) {
                 String result = st.nextToken().replaceAll("[^\\w\\s]", "");
-                if (tempMap.containsKey(result.toLowerCase())) {
-                    int i = tempMap.get(result.toLowerCase());
-                    tempMap.put(result.toLowerCase(), (i + 1));
-                } else {
-                    tempMap.put(result.toLowerCase(), 1);
-
-                }
-
+                tempMap.computeIfPresent(result, (k, v) -> v + 1);
+                tempMap.computeIfAbsent(result, (k) -> 1);
             }
-
         }
-
         return tempMap;
     }
 
@@ -108,12 +102,8 @@ public class IU4 {
     public static HashMap createUndefinedHashMap(ArrayList<String[]> inArray, int inInt) {
         HashMap<String, Integer> tempMap = new HashMap();
         for (String[] strings : inArray) {
-            if (tempMap.containsKey(strings[inInt].toLowerCase())) {
-                int i = tempMap.get(strings[inInt].toLowerCase());
-                tempMap.put(strings[inInt].toLowerCase(), (i + 1));
-            } else {
-                tempMap.put(strings[inInt].toLowerCase(), 1);
-            }
+            tempMap.computeIfPresent(strings[inInt], (k, v) -> v + 1);
+            tempMap.computeIfAbsent(strings[inInt], (k) -> 1);
         }
         return tempMap;
     }
@@ -217,7 +207,7 @@ public class IU4 {
             }
 
         }
-        //fail, to few words
+        //fail, to few words in data
         return null;
     }
 
@@ -231,13 +221,10 @@ public class IU4 {
     public static HashMap createStringHashMap(ArrayList<String> inArray) {
         HashMap<String, Integer> tempMap = new HashMap();
         for (String strings : inArray) {
-            if (tempMap.containsKey(strings.toLowerCase())) {
-                int i = tempMap.get(strings.toLowerCase());
-                tempMap.put(strings.toLowerCase(), (i + 1));
-            } else {
-                tempMap.put(strings.toLowerCase(), 1);
-            }
+            tempMap.computeIfPresent(strings, (k, v) -> v + 1);
+            tempMap.computeIfAbsent(strings, (k) -> 1);
         }
         return tempMap;
     }
+
 }
